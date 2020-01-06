@@ -1,0 +1,23 @@
+{
+  "name": "ts-1-profileFetch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/D-Molloy/ts-1-profileFetch.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/D-Molloy/ts-1-profileFetch/issues"
+  },
+  "homepage": "https://github.com/D-Molloy/ts-1-profileFetch#readme",
+  "dependencies": {
+    "axios": "^0.19.0"
+  }
+}
