@@ -1,8 +1,8 @@
 ## Notes taken from Typescript: The Complete Developer's Guide (Stephen Grider)
 
-(Section 1/2)
+(Section 1/2 - fetchTodo)
 
-### Definitions
+## Definitions
 
 - Type: Easy way to refer to the different properties + function that a value has. Every value in TS has a type.
 
@@ -19,3 +19,29 @@
 - Types allow other engineers to understand what values are flowing around our codebase
 
 #### Where do we you types? EVERYWHERE
+
+(Section 3)
+
+## Type Annotations & Type Inference
+
+- Type Annotations: Code we add to tell TS what type of value a variable will refer to. We (devs) tell TS the type (Manual)
+- Type inference: TS tries to figure out what type of value a variable refers to. TS guesses the type (Automatic)
+  These two are kind of at odds with each other
+
+### When to use:
+
+- Type annotations:
+
+  - When we declare a vairable on one line then initialize it later
+  - When we want a variable to have a type that can't be inferred
+  - When a function returns the 'any' type and we need to clarify the value
+
+- Type inference: ALWAYS!
+
+### The `Any` Type
+
+When TS can't predict the value, it will be 'any' (like with JSON.parse())
+
+- is an actual type
+- means TS has no idea what this is - can't check for correct property references
+- AVOID VARS WITH `ANY` AT ALL COSTS
