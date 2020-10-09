@@ -42,7 +42,7 @@ TypeScript helps catch errors
 ### When to use:
 
 Type Annotation - We tell Typescript the type
-Type Inference -Typescript guesses the type
+Type Inference - Typescript guesses the type
 
 - Type annotations:
 
@@ -59,3 +59,8 @@ When TS can't predict the value, it will be 'any' (like with JSON.parse())
 - is an actual type
 - means TS has no idea what this is - can't check for correct property references
 - AVOID VARS WITH `ANY` AT ALL COSTS
+
+### Type Annotations/Inference around functions
+
+- Annotations - Code we add to tell Typescript what type of arguments a function will receive and what type of values it will return
+- Typescript tries to figure out what type of value a function will return
