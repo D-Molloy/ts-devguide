@@ -7,7 +7,7 @@
  * With ts-node we combine the two (ts-node index.ts)
  */
 
-import axios from 'axios';
+import axios from "axios";
 
 const url = `https://jsonplaceholder.typicode.com/todos/1`;
 
@@ -20,7 +20,7 @@ interface Todo {
   completed: boolean;
 }
 
-axios.get(url).then(response => {
+axios.get(url).then((response) => {
   const todo = response.data as Todo;
   const { id, title, completed } = todo;
   logTodo(id, title, completed);
