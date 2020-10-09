@@ -1,6 +1,17 @@
 ## Notes taken from Typescript: The Complete Developer's Guide (Stephen Grider)
 
+TypeScript helps catch errors
+
+## The TS Type System:
+
+- helps us catch errors during development
+- Uses 'type annotations' to analyze our code
+- Only active during development
+- doesn't provide any performance optimization
+
 (Section 1/2 - fetchTodo)
+
+- use 'ts-node' package to compile and run files
 
 ## Definitions
 
@@ -29,6 +40,9 @@
   These two are kind of at odds with each other
 
 ### When to use:
+
+Type Annotation - We tell Typescript the type
+Type Inference -Typescript guesses the type
 
 - Type annotations:
 
