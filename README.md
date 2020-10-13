@@ -64,3 +64,27 @@ When TS can't predict the value, it will be 'any' (like with JSON.parse())
 
 - Annotations - Code we add to tell Typescript what type of arguments a function will receive and what type of values it will return
 - Typescript tries to figure out what type of value a function will return
+
+### Arrays
+
+- TS arrays generally have a specific type
+  Why do we care?
+  -TS can do type inference when extracting values from an array
+- TS can prevent us from adding incompatible values to the array
+- We can get help with map/forEach/reduce functions
+- Flexible - arrays can still contain multiple different types
+
+### Tuples
+
+- array-like structure where each element represents some property of a record
+- one possible use - CSV files
+
+```javascript
+const coke = {
+  color: "brown",
+  carbonated: true,
+  sugar: 40,
+};
+
+const cokeTuple: [string, boolean, number] = ["brown", true, 40];
+```
