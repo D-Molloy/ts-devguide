@@ -1,6 +1,9 @@
 ## Notes taken from Typescript: The Complete Developer's Guide (Stephen Grider)
 
+packages - parcel-bundler, faker
+
 TypeScript helps catch errors
+-it wants to know all of the functions in your code, what type of arguments they take, what kind of values they return, and the data in your app
 
 ## The TS Type System:
 
@@ -88,3 +91,32 @@ const coke = {
 
 const cokeTuple: [string, boolean, number] = ["brown", true, 40];
 ```
+
+### Interfaces
+
+- The goal of an interface is to define a new type
+- Interfaces + Classes = How we get really strong code reuse in TS
+- creates a new type, describing the property names and value types of an object
+
+### General Strategy for Reusable Code in TS
+
+- Create functions that accept arguments that are typed with interfaces
+- Objects/classes can decide to 'implement' a given interface to work with a function
+
+### Classes
+
+- classes in TS use modifiers
+  -- modifier can't override parent class modifiers
+  -- public (default): this method can be called any where, any time
+  -- private: this method can only be called by other methods in this class
+  -- protected: This method can be called by other methods in 'this' class, or by other methods in child classes
+
+- Interfaces and Classes are the primary tools used inside TS
+
+### Maps Project
+
+- run 'parcel index.html'
+
+- run 'npm i @types/faker' to install the type definition file
+
+- view contents of faker (ctrl + click on faker) in the \*.d.ts <-extension for definition file - treat like documentation
