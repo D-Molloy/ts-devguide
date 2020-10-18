@@ -97,6 +97,7 @@ const cokeTuple: [string, boolean, number] = ["brown", true, 40];
 - The goal of an interface is to define a new type
 - Interfaces + Classes = How we get really strong code reuse in TS
 - creates a new type, describing the property names and value types of an object
+- allow us as devs to decide where the errors show us (implementing an interface on a class vs. using as a type annotation)
 
 ### General Strategy for Reusable Code in TS
 
@@ -120,3 +121,39 @@ const cokeTuple: [string, boolean, number] = ["brown", true, 40];
 - run 'npm i @types/faker' to install the type definition file
 
 - view contents of faker (ctrl + click on faker) in the \*.d.ts <-extension for definition file - treat like documentation
+
+### TS.CONFIG
+
+- run `tsc --init` to create`tsconfig.json` - generated with possible options commented out
+- when a ts file is compiled, it checks for the option within tsconfig.json to setup the ts compiler
+  - set `rootDir` for where your ts files live, and `outDir` for where the compiled .js files should be placed
+- run `tsc -w` to have ts watch for any changes within the `src` folder and recompile when changes detected
+
+### Type Guard
+
+- checking the type of an argument before executing code
+- tells TS to allow access to all methods for the 'type' within the type guard
+- for primitives (number, string, boolean, symbol), user `typeof`
+- every other type of value (array, object), use `instanceof` and Constructor function for that type (instanceof Array)
+
+### Abstract Classes - alternative to Interfaces - relies on inheritance
+
+- can't be used to create an object directly
+- Only used as a parent class
+- can contain real implementation for some methods
+- the implemented methods can refer to other methods that don't actually exist yet (we still have to provide names and types for the unimplemented methods)
+- can make child classes promise to implement some other method
+
+### Interfaces vs Abstract Classes
+
+Interfaces
+
+- sets up a contract between to different classes
+- use when we have very different objects that we want to work together
+- promotes loose coupling
+
+Inheritance/Abstract Classes
+
+- sets up a contract between to different classes
+- use when we are trying to build up a definition of an object
+- STRONGLY couples classes together
