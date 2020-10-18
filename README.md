@@ -156,4 +156,4 @@ Inheritance/Abstract Classes
 
 - sets up a contract between to different classes
 - use when we are trying to build up a definition of an object
-- STRONGLY couples classes together
+- STRONGLY couples classes together (parent depends on child and vice versa)
