@@ -129,7 +129,7 @@ const cokeTuple: [string, boolean, number] = ["brown", true, 40];
   - set `rootDir` for where your ts files live, and `outDir` for where the compiled .js files should be placed
 - run `tsc -w` to have ts watch for any changes within the `src` folder and recompile when changes detected
 
-### Type Guard
+### Type Guard (03-sort)
 
 - checking the type of an argument before executing code
 - tells TS to allow access to all methods for the 'type' within the type guard
@@ -157,3 +157,53 @@ Inheritance/Abstract Classes
 - sets up a contract between to different classes
 - use when we are trying to build up a definition of an object
 - STRONGLY couples classes together (parent depends on child and vice versa)
+
+### Enums (enumeration) (04-csvParser)
+
+- Follow near-identical syntax rules as normal objects
+- Creates an object with the same keys and values when converted from TS to JS
+- primary goal is to signal to other engineers that these are all closely related values
+- Use whenever we have a small fixed set of values that are all closely related and known at compile time
+
+```javascript
+enum MatchResult {
+    HomeWin = "H",
+    AwayWin = "A",
+    Draw = "D"
+}
+```
+
+- also allows for `type assertions` - telling TS that a value will be contained in a specific enum
+
+```javascript
+row[5] as MatchResult
+```
+
+### Generics
+
+- customizes the definition of a class
+
+```javascript
+class HoldAnything<TypeOfData> {
+  data: TypeOfData;
+  constructor(data: TypeOfData) {
+    this.data = data;
+  }
+  // can also use throughout code
+  add(a: TypeOfData): TypeOfData {
+    return this.data;
+  }
+}
+
+const holdNumber = new HoldAnything() < number > 123;
+const holdString = new HoldAnything() < string > "denis";
+
+// or
+class holdNumber extends HoldAnything<number> {
+  //...
+}
+```
+
+- like function arguments, but for types in class/function definitions
+- Allows us to define the type of a property/argument/return value at a future point
+- used heavily when writing reusable code
