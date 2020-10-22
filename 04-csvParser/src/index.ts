@@ -1,12 +1,17 @@
-
 import { MatchReader } from './MatchReader'
 import { MatchResult } from './MatchResult'
+import { CsvFileReader } from './CsvFileReader'
+import { match } from 'assert';
 
-const reader = new MatchReader('football.csv')
-reader.read()
+// Create an object that satisfies the 'DataReader' interface
+const csvFileReader = new CsvFileReader('football.csv');
+
+// Create an instance of MatchReader and pass in something satisfying the DataReader interface
+const matchReader = new MatchReader(csvFileReader)
+matchReader.load()
 
 let manUnitedWins = 0
-for (let match of reader.data) {
+for (let match of matchReader.matches) {
     // BAD CODE - Comparing magic strings: difficult for others to grok (eg - what is H or A)
     if ((match[1] === "Man United" && match[5] === MatchResult.HomeWin) || (match[2] === "Man United" && match[5] === MatchResult.AwayWin)) {
         manUnitedWins++
@@ -14,6 +19,25 @@ for (let match of reader.data) {
 }
 
 console.log(`Manchester United wins: ${manUnitedWins}`)
+
+/**
+ * for the file in /inheritance
+ */
+// import { MatchReader } from './MatchReader'
+// import { MatchResult } from './MatchResult'
+
+// const reader = new MatchReader('football.csv')
+// reader.read()
+
+// let manUnitedWins = 0
+// for (let match of reader.data) {
+//     // BAD CODE - Comparing magic strings: difficult for others to grok (eg - what is H or A)
+//     if ((match[1] === "Man United" && match[5] === MatchResult.HomeWin) || (match[2] === "Man United" && match[5] === MatchResult.AwayWin)) {
+//         manUnitedWins++
+//     }
+// }
+
+// console.log(`Manchester United wins: ${manUnitedWins}`)
 
 // Bad Code
 

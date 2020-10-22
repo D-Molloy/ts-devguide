@@ -199,7 +199,7 @@ const holdNumber = new HoldAnything() < number > 123;
 const holdString = new HoldAnything() < string > "denis";
 
 // or
-class holdNumber extends HoldAnything<number> {
+class HoldNumber extends HoldAnything<number> {
   //...
 }
 ```
@@ -207,3 +207,12 @@ class holdNumber extends HoldAnything<number> {
 - like function arguments, but for types in class/function definitions
 - Allows us to define the type of a property/argument/return value at a future point
 - used heavily when writing reusable code
+
+### Inheritance vs Composition (04-csvReader)
+
+- Inheritance
+  - CHARACTERIZED BY AN 'is a ' RELATIONSHIP BETWEEN TWO CLASSES
+  - e.g. MatchReader 'is a' csvFileReader because MatchReader has all of the properties/methods of csvFileReader
+- Composition
+  - CHARACTERIZED BY A 'has a' RELATIONSHIP BETWEEN TWO CLASSES
+  - e.g. MatchReader had a reference to some outside object (CsvFileReader)
