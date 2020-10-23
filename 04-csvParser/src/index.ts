@@ -1,24 +1,38 @@
 import { MatchReader } from './MatchReader'
-import { MatchResult } from './MatchResult'
 import { CsvFileReader } from './CsvFileReader'
-import { match } from 'assert';
+import { ConsoleReport } from './reportTargets/ConsoleReport'
+import { WinsAnalysis } from './analyzers/WinsAnalysis'
+import { Summary } from './Summary'
+import { HtmlReport } from './reportTargets/HtmlReport'
 
-// Create an object that satisfies the 'DataReader' interface
-const csvFileReader = new CsvFileReader('football.csv');
-
+// before implementing static method on MatchReader
+// // Create an object that satisfies the 'DataReader' interface
+// const csvFileReader = new CsvFileReader('football.csv');
 // Create an instance of MatchReader and pass in something satisfying the DataReader interface
-const matchReader = new MatchReader(csvFileReader)
+// const matchReader = new MatchReader(csvFileReader)
+const matchReader = MatchReader.fromCsv("football.csv")
 matchReader.load()
+// ----------
+const consoleSummary = new Summary(
+    new WinsAnalysis("Liverpool"),
+    new ConsoleReport()
+)
 
-let manUnitedWins = 0
-for (let match of matchReader.matches) {
-    // BAD CODE - Comparing magic strings: difficult for others to grok (eg - what is H or A)
-    if ((match[1] === "Man United" && match[5] === MatchResult.HomeWin) || (match[2] === "Man United" && match[5] === MatchResult.AwayWin)) {
-        manUnitedWins++
-    }
-}
+consoleSummary.buildAndPrintReport(matchReader.matches)
 
-console.log(`Manchester United wins: ${manUnitedWins}`)
+
+const htmlSummary = Summary.winsAnalysisWithHtmlReport("Liverpool")
+
+// Before adding staticmethod
+// const htmlSummary = new Summary(
+//     new WinsAnalysis("Man United"),
+//     new HtmlReport()
+// )
+
+htmlSummary.buildAndPrintReport(matchReader.matches)
+
+
+
 
 /**
  * for the file in /inheritance

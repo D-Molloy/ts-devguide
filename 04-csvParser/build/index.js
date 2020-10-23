@@ -1,22 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var MatchReader_1 = require("./MatchReader");
-var MatchResult_1 = require("./MatchResult");
-var CsvFileReader_1 = require("./CsvFileReader");
-// Create an object that satisfies the 'DataReader' interface
-var csvFileReader = new CsvFileReader_1.CsvFileReader('football.csv');
+var ConsoleReport_1 = require("./reportTargets/ConsoleReport");
+var WinsAnalysis_1 = require("./analyzers/WinsAnalysis");
+var Summary_1 = require("./Summary");
+// before implementing static method on MatchReader
+// // Create an object that satisfies the 'DataReader' interface
+// const csvFileReader = new CsvFileReader('football.csv');
 // Create an instance of MatchReader and pass in something satisfying the DataReader interface
-var matchReader = new MatchReader_1.MatchReader(csvFileReader);
+// const matchReader = new MatchReader(csvFileReader)
+var matchReader = MatchReader_1.MatchReader.fromCsv("football.csv");
 matchReader.load();
-var manUnitedWins = 0;
-for (var _i = 0, _a = matchReader.matches; _i < _a.length; _i++) {
-    var match_1 = _a[_i];
-    // BAD CODE - Comparing magic strings: difficult for others to grok (eg - what is H or A)
-    if ((match_1[1] === "Man United" && match_1[5] === MatchResult_1.MatchResult.HomeWin) || (match_1[2] === "Man United" && match_1[5] === MatchResult_1.MatchResult.AwayWin)) {
-        manUnitedWins++;
-    }
-}
-console.log("Manchester United wins: " + manUnitedWins);
+// ----------
+var consoleSummary = new Summary_1.Summary(new WinsAnalysis_1.WinsAnalysis("Liverpool"), new ConsoleReport_1.ConsoleReport());
+consoleSummary.buildAndPrintReport(matchReader.matches);
+var htmlSummary = Summary_1.Summary.winsAnalysisWithHtmlReport("Liverpool");
+// Before adding staticmethod
+// const htmlSummary = new Summary(
+//     new WinsAnalysis("Man United"),
+//     new HtmlReport()
+// )
+htmlSummary.buildAndPrintReport(matchReader.matches);
 /**
  * for the file in /inheritance
  */

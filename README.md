@@ -208,11 +208,54 @@ class HoldNumber extends HoldAnything<number> {
 - Allows us to define the type of a property/argument/return value at a future point
 - used heavily when writing reusable code
 
-### Inheritance vs Composition (04-csvReader)
+### Inheritance vs Composition (04-csvReader - vid 121)
 
-- Inheritance
-  - CHARACTERIZED BY AN 'is a ' RELATIONSHIP BETWEEN TWO CLASSES
+- INHERITANCE
+  - characterized by an 'IS A' relationship between two classes
   - e.g. MatchReader 'is a' csvFileReader because MatchReader has all of the properties/methods of csvFileReader
-- Composition
-  - CHARACTERIZED BY A 'has a' RELATIONSHIP BETWEEN TWO CLASSES
-  - e.g. MatchReader had a reference to some outside object (CsvFileReader)
+- COMPOSITION (one object has a reference to another object)
+
+  - characterized by a 'HAS A' relationship between two classes
+  - favor delegation as a pattern to implement composition
+  -
+  - e.g. MatchReader 'had a' reference to some outside object (CsvFileReader)
+
+- Composition is used in general (and favored in general) - can be a lot easier to implement DRY code by offloading core functionality
+
+This may be a 'textbook' javascript definition but it's different than the definition of Composition in TS. Below is not a good pattern. For example - methods will be overwritten in the objectAssign. The term for the following snippet would be "Multiple Inheritance"
+
+```javascript
+const rectangular = (state) => {
+  return {
+    area: () => {
+      return state.height * state.width;
+    },
+  };
+};
+
+const openable = (state) => {
+  return {
+    toggleOpen: () => {
+      state.open = !state.open;
+    },
+  };
+};
+
+const buildRectangleWindow = (state) => {
+  return Object.assign(state, rectangular(state), openable(state));
+};
+
+const rectangleWindow = buildRectangleWindow({
+  open: false,
+  height: 60,
+  width: 100,
+});
+
+const windowArea = rectangleWindow.area();
+console.log(windowArea); //6000
+console.log(rectangleWindow.open); //false
+rectangleWindow.toggleOpen();
+console.log(rectangleWindow.open); //true
+```
+
+- true composition has a base class that offloads heavy lifting to other objects. The results of this heavy lifting could have different results (creating a new file vs console.logging the results)
