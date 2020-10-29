@@ -181,7 +181,7 @@ row[5] as MatchResult
 
 ### Generics
 
-- customizes the definition of a class
+- passing type definitions to a class on the fly
 
 ```javascript
 class HoldAnything<TypeOfData> {
@@ -259,3 +259,39 @@ console.log(rectangleWindow.open); //true
 ```
 
 - true composition has a base class that offloads heavy lifting to other objects. The results of this heavy lifting could have different results (creating a new file vs console.logging the results)
+
+- 04-csvParser summary - vid 132
+
+### Generic Constraints
+
+```javascript
+class Car {
+    print() {
+        console.log("I am a car")
+    }
+}
+
+class House {
+    print() {
+        console.log("I am a house")
+    }
+}
+
+// need to use the interface to promise TS that whatever is passed in will have a print method
+interface Printable {
+    print(): void
+}
+function printHousesOrCars<T extends Printable>(arr: T[]): void {
+    for (let i = 0; i < arr.length; i++) {
+        arr[i].print(); //Without 'extends Printable in the generic => Property 'print' does not exist on on type T
+
+    }
+}
+
+// the following would lead to an error (bc print doesn't exist)
+printHousesOrCars([1, 2, 3, 4]) //Type number is not assignable to type Printable
+// Type Inference - not passing the type of argument - be explicit about the type
+printHousesOrCars([new Car(), new Car()])
+// Type Annotation
+printHousesOrCars<House>([new House(), new House()])
+```
