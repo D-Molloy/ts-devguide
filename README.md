@@ -315,3 +315,12 @@ printHousesOrCars<House>([new House(), new House()])
 
 - serialize - Covert data from an object into some save-able format (json)
 - deserialize - Put data on an object using some previously saved data(json)
+
+#### Type Union
+
+```javascript
+  //  (number | string) is a TYPE UNION
+    get(propName: string): (number | string) {
+        return this.data[propName]
+    }
+```

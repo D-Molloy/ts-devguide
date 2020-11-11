@@ -1,22 +1,26 @@
-import axios, { AxiosResponse } from 'axios'
-const BACKEND = `http://localhost:4000`
+import axios, { AxiosPromise } from 'axios'
 
-export class Sync {
-    fetch(): void {
-        axios.get(`${BACKEND}/users/${this.get("id")}`)
-            .then((response: AxiosResponse): void => {
-                this.set(response.data)
-            })
-    }
+interface HasId {
+	id?: number
+}
 
-    save(): void {
-        const id = this.get("id")
-        if (id) {
-            // user exists -> update
-            axios.put(`${BACKEND}/users/${id}`, this.data);
-        } else {
-            // create a new user
-            axios.post(`${BACKEND}/users`, this.data);
-        }
-    }
+
+export class Sync<T extends HasId> {
+	constructor(public rootUrl: string) { }
+
+	fetch(id: number): AxiosPromise {
+		return axios.get(`${this.rootUrl}/${id}`)
+	}
+
+	save(data: T): AxiosPromise {
+		// added 'extends HasId' constrain on generic (T) to inform TS that type T will have an ID property
+		const { id } = data
+		if (id) {
+			// user exists -> update
+			return axios.put(`${this.rootUrl}/${id}`, data);
+		} else {
+			// create a new user
+			return axios.post(this.rootUrl, data);
+		}
+	}
 }
