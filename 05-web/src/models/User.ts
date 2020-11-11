@@ -1,15 +1,17 @@
+
+import { Eventing } from './Eventing'
+
+
 // "?" - optional property - meaning we can pass 0 or more to satisfy the instance
 interface UserProps {
+    // id - added by json-server
+    id?: number;
     name?: string;
     age?: number
 }
-// setting up a type ALIAS for a function that returns nothing
-type Callback = () => void;
-
 
 export class User {
-    events: { [key: string]: Callback[] } = {}
-
+    public events: Eventing = new Eventing()
     constructor(private data: UserProps) { }
 
     //  (number | string) is a TYPE UNION
@@ -19,18 +21,5 @@ export class User {
 
     set(update: UserProps): void {
         Object.assign(this.data, update)
-    }
-
-    // ()=>{} - callback is of type function that receives no arguments and return nothing
-    on(eventName: string, callback: Callback): void {
-        const handlers = this.events[eventName] || []
-        handlers.push(callback)
-        this.events[eventName] = handlers
-    }
-
-    trigger(eventName: string): void {
-        const handlers = this.events[eventName] || []
-        if (!handlers || handlers.length === 0) return
-        handlers.forEach(callback => callback())
     }
 }

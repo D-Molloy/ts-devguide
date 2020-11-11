@@ -98,6 +98,14 @@ const cokeTuple: [string, boolean, number] = ["brown", true, 40];
 - Interfaces + Classes = How we get really strong code reuse in TS
 - creates a new type, describing the property names and value types of an object
 - allow us as devs to decide where the errors show us (implementing an interface on a class vs. using as a type annotation)
+- adding a '?' after property names makes them optional
+
+```javascript
+interface UserProps {
+  name?: string;
+  age?: number;
+}
+```
 
 ### General Strategy for Reusable Code in TS
 
@@ -111,6 +119,8 @@ const cokeTuple: [string, boolean, number] = ["brown", true, 40];
   -- public (default): this method can be called any where, any time
   -- private: this method can only be called by other methods in this class
   -- protected: This method can be called by other methods in 'this' class, or by other methods in child classes
+
+  -- Sidenote - The static keyword defines a static method or property for a class. Neither static methods nor static properties can be called on instances of the class. Instead, they're called on the class itself.
 
 - Interfaces and Classes are the primary tools used inside TS
 
@@ -258,7 +268,7 @@ rectangleWindow.toggleOpen();
 console.log(rectangleWindow.open); //true
 ```
 
-- true composition has a base class that offloads heavy lifting to other objects. The results of this heavy lifting could have different results (creating a new file vs console.logging the results)
+- true composition has a base class that DELEGATES/offloads heavy lifting to other objects. The results of this heavy lifting could have different results (creating a new file vs console.logging the results)
 
 - 04-csvParser summary - vid 132
 
@@ -295,3 +305,13 @@ printHousesOrCars([new Car(), new Car()])
 // Type Annotation
 printHousesOrCars<House>([new House(), new House()])
 ```
+
+### 05-web
+
+- start parcel: `parcel index.html`
+- run json-server: `json-server -w db.json`
+
+#### Serialize & Deserialize
+
+- serialize - Covert data from an object into some save-able format (json)
+- deserialize - Put data on an object using some previously saved data(json)

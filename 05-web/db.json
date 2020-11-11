@@ -1,19 +1,9 @@
 {
   "users": [
     {
-      "name": "Denis",
-      "age": 20,
-      "id": 1
-    },
-    {
-      "name": "Amanda",
-      "age": 20,
-      "id": 2
-    },
-    {
-      "name": "Amanda",
-      "age": 20,
-      "id": 3
+      "id": 1,
+      "name": "newName",
+      "age": 999
     }
   ]
 }
