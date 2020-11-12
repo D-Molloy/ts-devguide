@@ -3,9 +3,17 @@ import { User } from './models/User'
 // View Classes - Handle HTML and events caused by the user
 
 const user = new User({ name: 'new record', age: 0 })
-user.events.on('change', () => {
-    console.log("hello change")
+
+user.on("change", () => {
+    console.log("Works");
+
 })
 
+user.events.trigger("change")
 
-user.events.trigger('change')
+
+// user.events.on('change', () => {
+//     console.log("hello change")
+// })
+
+// user.events.trigger('change')

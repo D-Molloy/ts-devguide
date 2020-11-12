@@ -26,6 +26,8 @@ TypeScript helps catch errors
   - Primitive types: number, boolean, void, undefined, string, symbol, null
   - Object types: functions, arrays, classes, objects (any types that we create)
 - Object type, trick TS into thinking its the right kind of types
+- In TS, strings can be types
+- In JS (and therefore TS), all objects keys are strings
 
 ### Why care about types?
 
@@ -323,4 +325,54 @@ printHousesOrCars<House>([new House(), new House()])
     get(propName: string): (number | string) {
         return this.data[propName]
     }
+```
+
+### Type Aliases
+
+- Type aliases create a new name for a type. Type aliases are sometimes similar to interfaces, but can name primitives, unions, tuples, and any other types that you’d otherwise have to write by hand.
+
+```javascript
+type Second = number;
+
+let timeInSecond: number = 10;
+let time: Second = 10;
+// -----
+type BestName = "Denis";
+const printName = (name: BestName): void => {};
+printName("Denis");
+printName("denis"); //Error
+```
+
+- In TS, strings can be types
+- In JS (and therefore TS), all objects keys are strings
+
+### Accessors/getters
+
+- use getters to retrieve data
+
+```javascript
+class Person {
+    constructor(public firstName: string, public lastName: string) { }
+    // get accessor allow TS fullName as a property instead of a method
+     get fullName(): string {
+        return `${this.firstName} ${this.lastName}`
+    }
+}
+
+const person = new Person('firstname', 'lastname')
+// normal:
+// console.log('person.fullname(', person.fullName())
+// using 'get' accessor
+console.log('person.fullname', person.fullName)
+
+// ----------
+  // on without getter (would also have to type the return)
+  on(eventName:string, callback:Callback): void{
+      this.events.on(eventName, callback)
+  }
+  // using getter - return a reference to the function you want to run
+  get on() {
+      return this.events.on
+  }
+
 ```

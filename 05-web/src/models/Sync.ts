@@ -4,7 +4,7 @@ interface HasId {
 	id?: number
 }
 
-
+// Extends HasId is a constraint
 export class Sync<T extends HasId> {
 	constructor(public rootUrl: string) { }
 
