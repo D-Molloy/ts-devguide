@@ -129,23 +129,26 @@ var Eventing =
 /** @class */
 function () {
   function Eventing() {
-    this.events = {};
-  } // ()=>{} - callback is of type function that receives no arguments and return nothing
+    var _this = this;
 
+    this.events = {}; // ()=>{} - callback is of type function that receives no arguments and return nothing
+    // need these methods to be bound to the current instance of eventing, so use arrow functions
+    // ALWAYS USE ARROW FUNCTIONS
 
-  Eventing.prototype.on = function (eventName, callback) {
-    var handlers = this.events[eventName] || [];
-    handlers.push(callback);
-    this.events[eventName] = handlers;
-  };
+    this.on = function (eventName, callback) {
+      var handlers = _this.events[eventName] || [];
+      handlers.push(callback);
+      _this.events[eventName] = handlers;
+    };
 
-  Eventing.prototype.trigger = function (eventName) {
-    var handlers = this.events[eventName] || [];
-    if (!handlers || handlers.length === 0) return;
-    handlers.forEach(function (callback) {
-      return callback();
-    });
-  };
+    this.trigger = function (eventName) {
+      var handlers = _this.events[eventName] || [];
+      if (!handlers || handlers.length === 0) return;
+      handlers.forEach(function (callback) {
+        return callback();
+      });
+    };
+  }
 
   return Eventing;
 }();
@@ -1992,18 +1995,21 @@ var Attributes =
 /** @class */
 function () {
   function Attributes(data) {
-    this.data = data;
-  } //  (number | string) is a TYPE UNION
-  // K isn't a keyword, its by convention
-  // <K extends keyof T> - creates a Generic Constraint - type of K can only ever be a key of T 
-  // a constraint limits the types which K can be (another example in Sync.ts)
-  // if T is UserProps, then K can only be "id", "name", "age"
-  // T[K] - a normal object lookup - look at the interface of T and return the corresponding type
+    var _this = this;
 
+    this.data = data; //  (number | string) is a TYPE UNION
+    // K isn't a keyword, its by convention
+    // <K extends keyof T> - creates a Generic Constraint - type of K can only ever be a key of T 
+    // a constraint limits the types which K can be (another example in Sync.ts)
+    // if T is UserProps, then K can only be "id", "name", "age"
+    // T[K] - a normal object lookup - look at the interface of T and return the corresponding type
+    //  use BOUND/arrow function to get around 'this' issues
+    // need to make sure that 'this' in get correctly bound to the instance of attributes
 
-  Attributes.prototype.get = function (key) {
-    return this.data[key];
-  };
+    this.get = function (key) {
+      return _this.data[key];
+    };
+  }
 
   Attributes.prototype.set = function (update) {
     Object.assign(this.data, update);
@@ -2094,13 +2100,11 @@ var user = new User_1.User({
   name: 'new record',
   age: 0
 });
-user.on("change", function () {
-  console.log("Works");
+console.log(user.get('name'));
+user.on('change', function () {
+  console.log("hello change");
 });
-user.events.trigger("change"); // user.events.on('change', () => {
-//     console.log("hello change")
-// })
-// user.events.trigger('change')
+user.trigger('change');
 },{"./models/User":"src/models/User.ts"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
