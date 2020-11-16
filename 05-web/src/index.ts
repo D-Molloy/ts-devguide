@@ -2,13 +2,10 @@
 import { User } from './models/User'
 // View Classes - Handle HTML and events caused by the user
 
-const user = new User({ name: 'new record', age: 0 })
+const user = new User({ name: "Louis", age: 5 })
 
-console.log(user.get('name'));
-
-
-user.on('change', () => {
-    console.log("hello change")
+user.on('save', () => {
+    console.table(user.attributes.getAll())
 })
 
-user.trigger('change')
+user.save()

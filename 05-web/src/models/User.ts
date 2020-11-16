@@ -1,7 +1,7 @@
-
 import { Eventing } from './Eventing'
 import { Sync } from './Sync'
 import { Attributes } from './Attributes'
+import { AxiosResponse } from 'axios';
 // "?" - optional property - meaning we can pass 0 or more to satisfy the instance
 export interface UserProps {
     // id - added by json-server
@@ -40,5 +40,28 @@ export class User {
         return this.attributes.get;
     }
 
+    set(update: UserProps): void {
+        this.attributes.set(update)
+        this.events.trigger('change')
+    }
+
+    fetch(): void {
+        // if id is truthy then user exists
+        const id = this.get('id')
+        if (typeof id !== 'number') {
+            throw new Error("Can't fetch without an id")
+        }
+        this.sync.fetch(id).then((response: AxiosResponse): void => {
+            this.set(response.data)
+        })
+    }
+
+    save(): void {
+        this.sync.save(this.attributes.getAll()).then((response: AxiosResponse): void => {
+            this.trigger("save")
+        }).catch(() => {
+            this.trigger('error')
+        })
+    }
 
 }

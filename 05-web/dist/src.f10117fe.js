@@ -2009,6 +2009,10 @@ function () {
     this.get = function (key) {
       return _this.data[key];
     };
+
+    this.getAll = function () {
+      return _this.data;
+    };
   }
 
   Attributes.prototype.set = function (update) {
@@ -2082,6 +2086,37 @@ function () {
     enumerable: false,
     configurable: true
   });
+
+  User.prototype.set = function (update) {
+    this.attributes.set(update);
+    this.events.trigger('change');
+  };
+
+  User.prototype.fetch = function () {
+    var _this = this; // if id is truthy then user exists
+
+
+    var id = this.get('id');
+
+    if (typeof id !== 'number') {
+      throw new Error("Can't fetch without an id");
+    }
+
+    this.sync.fetch(id).then(function (response) {
+      _this.set(response.data);
+    });
+  };
+
+  User.prototype.save = function () {
+    var _this = this;
+
+    this.sync.save(this.attributes.getAll()).then(function (response) {
+      _this.trigger("save");
+    }).catch(function () {
+      _this.trigger('error');
+    });
+  };
+
   return User;
 }();
 
@@ -2097,14 +2132,13 @@ var User_1 = require("./models/User"); // View Classes - Handle HTML and events 
 
 
 var user = new User_1.User({
-  name: 'new record',
-  age: 0
+  name: "Louis",
+  age: 5
 });
-console.log(user.get('name'));
-user.on('change', function () {
-  console.log("hello change");
+user.on('save', function () {
+  console.table(user.attributes.getAll());
 });
-user.trigger('change');
+user.save();
 },{"./models/User":"src/models/User.ts"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
