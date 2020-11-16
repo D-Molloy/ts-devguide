@@ -33,17 +33,22 @@ export class Model<T extends HasId> {
     //     this.events.on(eventName, callback)
     // }
     // using getter - return a REFERENCE to the function you want to run
-    get on() {
-        return this.events.on
-    }
+    // get on() {
+    //     return this.events.on
+    // }
+    // get trigger() {
+    //     return this.events.trigger;
+    // }
 
-    get trigger() {
-        return this.events.trigger;
-    }
+    // get get() {
+    //     return this.attributes.get;
+    // }
 
-    get get() {
-        return this.attributes.get;
-    }
+    /** Shorten even further: (can only refactor to this because events and attributes or initialized in a constructor instead of inline) */
+    on = this.events.on
+    trigger = this.events.trigger
+    get = this.attributes.get
+
 
     set(update: T): void {
         this.attributes.set(update)

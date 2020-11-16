@@ -2,6 +2,7 @@ import { Model } from './Model'
 import { Attributes } from './Attributes'
 import { Eventing } from './Eventing'
 import { ApiSync } from './ApiSync'
+import { Collection } from './Collection'
 
 // "?" - optional property - meaning we can pass 0 or more to satisfy the instance
 export interface UserProps {
@@ -20,6 +21,12 @@ export class User extends Model<UserProps> {
             new Eventing(),
             new ApiSync<UserProps>(rootUrl)
         )
+    }
+
+    static buildUserCollection(): Collection<User, UserProps> {
+        return new Collection<User, UserProps>(
+            rootUrl,
+            (json: UserProps) => User.buildUser(json))
     }
     // free to add User specific methods
     // isAdminUser(): boolean {
