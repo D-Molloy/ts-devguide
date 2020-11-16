@@ -5,7 +5,7 @@ interface HasId {
 }
 
 // Extends HasId is a constraint
-export class Sync<T extends HasId> {
+export class ApiSync<T extends HasId> {
 	constructor(public rootUrl: string) { }
 
 	fetch(id: number): AxiosPromise {

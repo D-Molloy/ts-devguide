@@ -1,7 +1,8 @@
-import { Eventing } from './Eventing'
-import { Sync } from './Sync'
+import { Model } from './Model'
 import { Attributes } from './Attributes'
-import { AxiosResponse } from 'axios';
+import { Eventing } from './Eventing'
+import { ApiSync } from './ApiSync'
+
 // "?" - optional property - meaning we can pass 0 or more to satisfy the instance
 export interface UserProps {
     // id - added by json-server
@@ -12,56 +13,16 @@ export interface UserProps {
 
 const rootUrl = "http://localhost:4000/users"
 
-export class User {
-    // Eventing - not the best approach bc we're hard-wiring Eventing into this component, but its a safe risk
-    public events: Eventing = new Eventing();
-    public sync: Sync<UserProps> = new Sync<UserProps>(rootUrl);
-
-    // if properties have to be initialized via the constructor (attributes in this case), then you have to initialize like so:
-    public attributes: Attributes<UserProps>;
-    constructor(attrs: UserProps) {
-        this.attributes = new Attributes<UserProps>(attrs)
+export class User extends Model<UserProps> {
+    static buildUser(attrs: UserProps): User {
+        return new User(
+            new Attributes<UserProps>(attrs),
+            new Eventing(),
+            new ApiSync<UserProps>(rootUrl)
+        )
     }
-
-    // on without getter (would also have to type the return)
-    // on(eventName:string, callback:Callback): void{
-    //     this.events.on(eventName, callback)
+    // free to add User specific methods
+    // isAdminUser(): boolean {
+    //     return this.get('id') === 1
     // }
-    // using getter - return a REFERENCE to the function you want to run
-    get on() {
-        return this.events.on
-    }
-
-    get trigger() {
-        return this.events.trigger;
-    }
-
-    get get() {
-        return this.attributes.get;
-    }
-
-    set(update: UserProps): void {
-        this.attributes.set(update)
-        this.events.trigger('change')
-    }
-
-    fetch(): void {
-        // if id is truthy then user exists
-        const id = this.get('id')
-        if (typeof id !== 'number') {
-            throw new Error("Can't fetch without an id")
-        }
-        this.sync.fetch(id).then((response: AxiosResponse): void => {
-            this.set(response.data)
-        })
-    }
-
-    save(): void {
-        this.sync.save(this.attributes.getAll()).then((response: AxiosResponse): void => {
-            this.trigger("save")
-        }).catch(() => {
-            this.trigger('error')
-        })
-    }
-
 }
