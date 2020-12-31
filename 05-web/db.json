@@ -14,6 +14,11 @@
       "name": "Boogie",
       "age": 20,
       "id": 3
+    },
+    {
+      "name": "New Name",
+      "age": 38,
+      "id": 4
     }
   ]
 }
