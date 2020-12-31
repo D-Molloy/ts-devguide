@@ -170,6 +170,9 @@ Inheritance/Abstract Classes
 - use when we are trying to build up a definition of an object
 - STRONGLY couples classes together (parent depends on child and vice versa)
 
+Abstract definition - informing this class what events map will look like to avoid errors
+
+
 ### Enums (enumeration) (04-csvParser)
 
 - Follow near-identical syntax rules as normal objects

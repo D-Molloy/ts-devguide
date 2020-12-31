@@ -11,19 +11,9 @@
       "id": 2
     },
     {
-      "name": "Louis",
-      "age": 5,
+      "name": "Boogie",
+      "age": 20,
       "id": 3
-    },
-    {
-      "name": "Louis",
-      "age": 5,
-      "id": 4
-    },
-    {
-      "name": "Louis",
-      "age": 5,
-      "id": 5
     }
   ]
 }
