@@ -7,6 +7,7 @@ TypeScript helps catch errors
 
 ## The TS Type System:
 
+- distinct OOP style
 - helps us catch errors during development
 - Uses 'type annotations' to analyze our code
 - Only active during development
@@ -379,4 +380,10 @@ console.log('person.fullname', person.fullName)
   }
 
 ```
+
+### TS with JS libraries issues (14-Express + TS - 06)
+- TS and its OOP were developed long before JS had a strong idea of classes.  To integrate TS with these libs:
+- Use the lib normally, adding in basic type annotations where possible
+- Use a TS adapter library that has helpers for using your lib with TS
+- Twist your lib to work with TS classes (focus of this course)
 
