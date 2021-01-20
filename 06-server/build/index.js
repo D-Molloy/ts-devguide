@@ -6,8 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // importing Request/Response interfaces to annotate req/res
 var express_1 = __importDefault(require("express"));
 var loginRoutes_1 = require("./routes/loginRoutes");
+var body_parser_1 = __importDefault(require("body-parser"));
 var app = express_1.default();
 var PORT = 3000;
+app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use(loginRoutes_1.router);
 app.listen(PORT, function () {
     console.log("Listening on http://localhost:" + PORT);

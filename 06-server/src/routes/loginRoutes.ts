@@ -21,7 +21,14 @@ router.get("/login", (req: Request, res: Response) => {
       Password
       <input name="password" type="password" />
     </label>
+    <button>Submit</button>
   </form>`)
+})
+
+router.post("/login", (req: Request, res: Response) => {
+  const { email, password } = req.body;
+
+  res.send(JSON.stringify({ email, password }))
 })
 
 
