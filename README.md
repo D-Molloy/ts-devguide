@@ -387,3 +387,15 @@ console.log('person.fullname', person.fullName)
 - Use a TS adapter library that has helpers for using your lib with TS
 - Twist your lib to work with TS classes (focus of this course)
 
+
+#### Type Definition File
+- a type definition file/lib for a library tells us about the different properties built in to the package (Request/Response/Next), but not the properties that could be added on (like by middleware and bodyParser (the body of the request)).  
+
+#### Integration Issues
+##### Cons
+- Type definition files alone can't express what is going on in the JS world accurately (as mentioned above)
+- Type definition files provided to us aren't always accurate
+- Inputs to a server (or any program with external inputs) are not guaranteed to exist, or be of the correct type
+
+##### Pro
+- Addressing these type issue with typescript can force us to write better code

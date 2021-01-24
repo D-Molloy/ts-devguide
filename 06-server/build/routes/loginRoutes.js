@@ -12,5 +12,11 @@ router.get("/login", function (req, res) {
 });
 router.post("/login", function (req, res) {
     var _a = req.body, email = _a.email, password = _a.password;
-    res.send(JSON.stringify({ email: email, password: password }));
+    // type guard
+    if (email && password) {
+        res.send({ email: email.toUpperCase(), password: password.toUpperCase() });
+    }
+    else {
+        res.send("You must provide an email");
+    }
 });
