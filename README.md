@@ -20,6 +20,8 @@ TypeScript helps catch errors
 ## Definitions
 
 - Type: Easy way to refer to the different properties + function that a value has. Every value in TS has a type.
+- main features:  classes and interfaces
+
 
 ### TS Types
 
@@ -399,3 +401,8 @@ console.log('person.fullname', person.fullName)
 
 ##### Pro
 - Addressing these type issue with typescript can force us to write better code
+
+
+#### Namespace (misc)
+- The namespace is used for logical grouping of functionalities. A namespace can include interfaces, classes, functions and variables to support a single or a group of related functionalities.
+-A note about terminology: It’s important to note that in TypeScript 1.5, the nomenclature has changed. “Internal modules” are now “namespaces”. “External modules” are now simply “modules”, as to align with ECMAScript 2015’s terminology, (namely that module X { is equivalent to the now-preferred namespace X {).

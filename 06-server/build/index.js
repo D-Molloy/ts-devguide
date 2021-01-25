@@ -7,9 +7,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var loginRoutes_1 = require("./routes/loginRoutes");
 var body_parser_1 = __importDefault(require("body-parser"));
+var cookie_session_1 = __importDefault(require("cookie-session"));
 var app = express_1.default();
 var PORT = 3000;
 app.use(body_parser_1.default.urlencoded({ extended: true }));
+// keys used for encryption
+app.use(cookie_session_1.default({ keys: ['adfdasf'] }));
 app.use(loginRoutes_1.router);
 app.listen(PORT, function () {
     console.log("Listening on http://localhost:" + PORT);
