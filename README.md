@@ -406,3 +406,53 @@ console.log('person.fullname', person.fullName)
 #### Namespace (misc)
 - The namespace is used for logical grouping of functionalities. A namespace can include interfaces, classes, functions and variables to support a single or a group of related functionalities.
 -A note about terminology: It’s important to note that in TypeScript 1.5, the nomenclature has changed. “Internal modules” are now “namespaces”. “External modules” are now simply “modules”, as to align with ECMAScript 2015’s terminology, (namely that module X { is equivalent to the now-preferred namespace X {).
+
+### Decorators (15 - /features)
+A Decorator is a special kind of declaration that can be attached to a class declaration, method, accessor, property, or parameter. Decorators use the form @expression, where expression must evaluate to a function that will be called at runtime with information about the decorated declaration.
+
+- decorators are applied when the code for a class is ran (not when an instance is created)
+- functions that can be used to modify/change different properties/methods in the class
+- not the same as JS decorators
+- used inside/on classes only
+- Understanding the order in which decorators are ran are the key to understanding them
+- EXPERIMENTAL
+
+#### Can be used on PROPERTIES/METHODS/ACCESSORS
+```javascript
+class Boat {
+  //...
+  @logError
+  pilot(): void {
+    throw new Error("Beep boop error")
+    console.log("AHOY SET SAIL")
+  }
+}
+
+// Decorator
+function logError(target: any, key: string, desc:PropertyDescriptor): void {
+  console.log({ target, key, desc }) //{ target: { pilot: [Function (anonymous)] }, key: 'pilot' }
+}
+```
+##### Args
+- 1 - target - is the prototype of the object
+- 2 - key - the key of the property/method/accessor on the obj
+- 3 - property descriptor -  an object that has some config options around a property defined on an object.  ES5 JS - Object.getOwnPropertyDescriptor()
+```javascript
+// locking  the value of method
+const car = {make: "subaru", year:2000}
+Object.getOwnPropertyDescriptor(car, "make") //{value: "subaru", writable: true, enumerable: true, configurable: true}
+Object.defineProperty(car, "make", {writable:false})   //{value: "subaru", writable: false, enumerable: true, configurable: true}
+car.make="jeep" //jeep
+console.log(car)// {make: "jeep", year: 2000}
+```
+#### Property descriptor methods
+- writable - whether or not this property can be changed
+- enumerable - Whether or not we can iterate over this property
+- value - current value
+- configurable - property definition can be changed and property can be deleted
+
+#### Decorator factory 
+- a decorator that returns a function
+- used when you want to customize/configure a decorator
+
+### A decorator is called before an instance is made, so you CAN'T access instance properties because the instance hasn't been initialized *
