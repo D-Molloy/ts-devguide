@@ -456,3 +456,50 @@ console.log(car)// {make: "jeep", year: 2000}
 - used when you want to customize/configure a decorator
 
 ### A decorator is called before an instance is made, so you CAN'T access instance properties because the instance hasn't been initialized *
+
+
+
+### React/Redux & TS (17)
+- https://redux.js.org/recipes/usage-with-typescript
+
+```
+ npx create-react-app 07-react-redux --template typescript
+```
+
+#### Pros
+- Far easier to avoid extremely common typos, like incorrect action types
+- Gives devs a far better understanding of the types of data flowing around
+- Much easier to refactor just about anything
+
+#### Cons
+- Not the best type definition files (especially around redux)
+- Tons of generics flying around
+- Tons of imports, as just about everything (action creator, action reducer, store, component) need to be aware of different types
+- Redux is inherently functional in nature, tough integration with TS classes
+
+
+#### Notes
+- most basic use is using interfaces to describe props being passed
+- whenever using a Component we can specify the props by passing the interface in as a generic
+- Typical setup:
+ 1 - define component
+ 2 - create an interface that describes the props coming into the component
+ 3 - reference the interface as a generic to the component
+
+```javascript
+interface AppProps {
+  // make props optional with the ?
+  color?: string
+}
+
+// First generic <P `as AppProps`> is for Props
+// Second <S> is for state
+class App extends React.Component<AppProps> {
+  render() {
+    return <h1 style={{ color: this.props.color }}>Hello World!</h1>
+  }
+}
+
+ReactDOM.render(<App color="red" />, document.getElementById("root"))
+// ReactDOM.render(<App />, document.getElementById("root"))
+```
