@@ -503,3 +503,4 @@ class App extends React.Component<AppProps> {
 ReactDOM.render(<App color="red" />, document.getElementById("root"))
 // ReactDOM.render(<App />, document.getElementById("root"))
 ```
+test
